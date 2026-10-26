@@ -68,6 +68,7 @@ struct PhotosBackupApp: App {
                 .environmentObject(automaticBackup)
                 .task { await automaticBackup.start() }
                 .onChange(of: scenePhase) { phase in
+                    UIApplication.shared.isIdleTimerDisabled = (phase == .active)
                     switch phase {
                     case .active:
                         AppSessionTracker.note(.active)
